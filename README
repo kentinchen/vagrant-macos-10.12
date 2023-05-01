@@ -2,7 +2,7 @@
     cd D:\vagrant\image
     https://app.vagrantup.com/jhcook/boxes/macos-sierra             10.12      2016 Sierra
                                                                     10.13      2017 High Sierra
-    https://app.vagrantup.com/yzgyyang/boxes/macOS-mojave           10.14      2018 Mojave
+                                                                    10.14      2018 Mojave
                                                                     10.15      2019 Catalina
                                                                     11.7       2020 Big Sur
     https://app.vagrantup.com/amarcireau/boxes/macos                12.5       2021 Monterey
