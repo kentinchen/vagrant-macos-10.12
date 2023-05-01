@@ -45,4 +45,4 @@ VBoxManage
     VBoxManage setextradata "macos13" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
     VBoxManage setextradata "macos13" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
 
-
+    VBoxManage storagectl "macos" --name SATA --hostiocache on
