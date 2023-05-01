@@ -1,0 +1,48 @@
+下载 Vagrant box
+    cd D:\vagrant\image
+    https://app.vagrantup.com/jhcook/boxes/macos-sierra             10.12      2016 Sierra
+                                                                    10.13      2017 High Sierra
+    https://app.vagrantup.com/yzgyyang/boxes/macOS-mojave           10.14      2018 Mojave
+                                                                    10.15      2019 Catalina
+                                                                    11.7       2020 Big Sur
+    https://app.vagrantup.com/amarcireau/boxes/macos                12.5       2021 Monterey
+                                                                    13.3       2022 Ventura
+Vagrant 添加Box
+    cd D:\vagrant\image
+    vagrant box add ./macos-sierra-10.12_vb.box --name macos/10.12
+    vagrant box add ./macos-mojave-10.14_vb.box --name macos/10.14
+    vagrant box list
+
+Vagrant 创建vm并配置
+    vagrant init macos/10.12
+    编辑修改生成的 Vagrantfile :
+    Vagrant.configure("2") do |config|
+      config.vm.box = "macOS"
+      config.vm.provider "virtualbox" do |vb|
+          vb.gui = true
+          vb.memory = "4096"
+      end
+    end
+
+Vagrant停止、重启
+    vagrant halt
+    vagrant up
+    vagrant up --parallel          并行启动
+    #vagrant destroy -f
+
+VBoxManage
+    Stderr: VBoxManage.exe: error: Failed to query SMC value from the host (VERR_INVALID_HANDLE)
+    VBoxManage.exe: error: Details: code E_FAIL (0x80004005), component ConsoleWrap, interface IConsole
+
+    cd "C:\Program Files\Oracle\VirtualBox\"
+    VBoxManage list vms
+    VBoxManage setextradata "macos" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
+
+    cd "C:\Program Files\Oracle\VirtualBox\"
+    VBoxManage modifyvm "macos13" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
+    VBoxManage setextradata "macos13" VBoxInternal/Devices/efi/0/Config/DmiSystemProduct "MacBookPro15,1"
+    VBoxManage setextradata "macos13" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Mac-551B86E5744E2388"
+    VBoxManage setextradata "macos13" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
+    VBoxManage setextradata "macos13" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
+
+
