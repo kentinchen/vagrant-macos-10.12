@@ -45,5 +45,5 @@ VBoxManage
     VBoxManage setextradata "macos13" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Mac-551B86E5744E2388"
     VBoxManage setextradata "macos13" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
     VBoxManage setextradata "macos13" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 1
-    VBoxManage setextradata "macos13" "VBoxInternal2/EfiGraphicsResolution" "1920x1080"
+    VBoxManage setextradata "macos10.12" "VBoxInternal2/EfiGraphicsResolution" "1920x1080"
     
