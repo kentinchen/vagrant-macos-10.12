@@ -57,6 +57,7 @@ Vagrant停止、重启
     VBoxManage setextradata "macos13" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
     VBoxManage setextradata "macos13" "VBoxInternal2/EfiGraphicsResolution" "1920x1080"
 
+----------------------------------------------------------------------
 配置分辨率
 sudo /Library/Application\ Support/VMware\ Tools/vmware-resolutionSet 1920 1080
 
