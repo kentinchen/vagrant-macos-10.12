@@ -31,19 +31,32 @@ Vagrant停止、重启
     vagrant up --parallel          并行启动
     #vagrant destroy -f
 
-VBoxManage
-    Stderr: VBoxManage.exe: error: Failed to query SMC value from the host (VERR_INVALID_HANDLE)
-    VBoxManage.exe: error: Details: code E_FAIL (0x80004005), component ConsoleWrap, interface IConsole
+打包box
+    vagrant package --base my-virtual-machine
+    工作目录会产生package.box
+
+-----------------------------------------------------------------------
+1. Intel VT-x 和 AMD-V
+2. VirtualBox 和扩展包
+3. macOS Ventura ISO、CDR 或 VMDK
+4. 创建一个新的虚拟机  2C/8G/150G
+5. 配置虚拟机设置
+  “系统”选项卡，在“主板”配置界面取消选中软盘
+   在“处理器”选项卡并将处理器增加到 2 或更多
+   “显示”选项卡>并将视频内存增加到128 MB
+   从USB类别中启用 USB3.0
 
     cd "C:\Program Files\Oracle\VirtualBox\"
     VBoxManage list vms
-    VBoxManage setextradata "macos" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
 
     cd "C:\Program Files\Oracle\VirtualBox\"
     VBoxManage modifyvm "macos13" --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
     VBoxManage setextradata "macos13" VBoxInternal/Devices/efi/0/Config/DmiSystemProduct "MacBookPro15,1"
     VBoxManage setextradata "macos13" "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Mac-551B86E5744E2388"
     VBoxManage setextradata "macos13" "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
-    VBoxManage setextradata "macos13" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 1
-    VBoxManage setextradata "macos10.12" "VBoxInternal2/EfiGraphicsResolution" "1920x1080"
-    
+    VBoxManage setextradata "macos13" "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
+    VBoxManage setextradata "macos13" "VBoxInternal2/EfiGraphicsResolution" "1920x1080"
+
+配置分辨率
+sudo /Library/Application\ Support/VMware\ Tools/vmware-resolutionSet 1920 1080
+
