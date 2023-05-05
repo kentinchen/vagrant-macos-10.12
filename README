@@ -9,6 +9,7 @@
                                                                     13.3       2022 Ventura
 Vagrant 添加Box
     cd D:\vagrant\image
+    curl https://app.vagrantup.com/jhcook/boxes/macos-sierra
     vagrant box add ./macos-sierra-10.12_vb.box --name macos/10.12
     vagrant box add ./macos-mojave-10.14_vb.box --name macos/10.14
     vagrant box add ./macos-monterey-12.5_vb.box --name macos/12.5
