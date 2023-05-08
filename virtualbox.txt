@@ -1,0 +1,38 @@
+安装VirtulBox及扩展包
+关闭Hyper-V及WSL（只能一个软件使用）
+   bcdedit /set hypervisorlaunchtype off 
+   #bcdedit /set hypervisorlaunchtype auto
+   重启电脑
+   Virtualbox is not using hardware-supported virtualization features.
+   Check that software such as Hyper-V, Windows Sandbox, WSL2, memory integrity
+   protection, and other Windows features that lock virtualization are turned off.
+   Exiting.
+   
+----------------脚本安装----------------
+1、安装cygwin及相关软件
+   coreutils ≥ 8.22, GNU gzip ≥ 1.5, Info-ZIP unzip ≥ v6.0, GNU wget ≥ 1.14, xxd ≥ 1.11
+2、Clone安装脚本
+   git clone https://github.com/myspaghetti/macos-virtualbox.git
+3、安装MacOS
+   cd /cygdrive/d/project/macos-virtualbox/
+   bash -i macos-guest-virtualbox.sh
+4、清理临时文件
+   ./macos-guest-virtualbox.sh prompt_delete_temporary_files
+
+----------------手动安装----------------
+https://iboysoft.com/howto/install-macos-13-on-virtualbox.html
+1. 注意: 安装完扩展包后, usb 选择3.0
+2. 显示 选择vboxsvga
+3. 半虚拟化接口选择最少
+cd "C:\Program Files\Oracle\VirtualBox\"
+SET VMName="macos13"
+VBoxManage modifyvm  %VMName% --cpuidset 00000001 000106e5 00100800 0098e3fd bfebfbff
+VBoxManage setextradata %VMName%  "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct" "iMac19,3"
+VBoxManage setextradata %VMName%  "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion" "1.0"
+VBoxManage setextradata %VMName%  "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct" "Iloveapple"
+VBoxManage setextradata %VMName%  "VBoxInternal/Devices/smc/0/Config/DeviceKey" "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc"
+VBoxManage setextradata %VMName%  "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC" 0
+VBoxManage setextradata %VMName%  "VBoxInternal/TM/TSCMode" "RealTSCOffset"          
+
+VBoxManage setextradata %VMName%  "CustomVideoMode1" "1920x1080x32"
+VBoxManage setextradata %VMName%  "VBoxInternal2/EfiGraphicsResolution" "1920x1080"

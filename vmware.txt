@@ -1,0 +1,15 @@
+VMware Workstation 17 Pro
+JU090-6039P-08409-8J0QH-2YR7F
+
+https://www.bilibili.com/read/cv21091190/
+
+https://github.com/DrDonk/unlocker/releases 
+https://github.com/acidanthera/OpenCorePkg/releases
+解压下载的 OpenCore 文件夹，打开Utilities\macrecovery 路径
+python macrecovery.py -b Mac-4B682C642B45593E -m 00000000000000000 download
+com.apple.recovery.boot/BaseSystem.dmg
+
+https://qemu.weilnetz.de/w64/
+c:\"Program Files"\qemu\qemu-img convert -O vmdk -o compat6 BaseSystem.dmg recovery.vmdk 
+
+https://pan.baidu.com/s/1ke07IxqGFIn8M7kAdP282A?pwd=kecx

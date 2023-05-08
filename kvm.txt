@@ -1,0 +1,58 @@
+1、安装qemu及kvm
+echo 1 > /sys/module/kvm/parameters/ignore_msrs
+sudo yum     install qemu uml-utilities virt-manager dmg2img git wget
+sudo apt-get install qemu uml-utilities virt-manager git wget libguestfs-tools p7zip-full make dmg2img -y
+
+2、clone代码及准备
+cd ~
+git clone https://github.com/kholia/OSX-KVM.git
+cd OSX-KVM
+cp kvm.conf /etc/modprobe.d/kvm.conf
+./fetch-macOS-v2.py
+dmg2img BaseSystem.dmg BaseSystem.img
+qemu-img create -f qcow2 mac_hdd_ng.img 128G
+
+3、安装mac
+./OpenCore-Boot.sh
+./boot-macOS-headless.sh
+
+4、安装之后
+vi /etc/rc.local
+#virsh net-start default
+#virsh net-autostart default
+ip tuntap add dev tap0 mode tap
+ip link set tap0 up promisc on
+ip link set dev virbr0 up
+ip link set dev tap0 master virbr0
+
+tap/tun 通过驱动程序和一个与之关联的字符设备，来实现用户空间和内核空间的通信接口。
+tap：/dev/tap0
+tun：/dev/net/tun
+tun 设备的最大用途就是用于隧道通信的
+tap 是一个二层设备（或者以太网设备），只能处理二层的以太网帧；
+tun 是一个点对点的三层设备（或网络层设备），只能处理三层的 IP 数据包。
+
+qemu-img create -f qcow2 MacDisk.qcow2 128G
+vi bash.sh
+    -drive id=SystemDisk,if=none,file=MacDisk.qcow2 \
+    -device ide-hd,bus=sata.4,drive=SystemDisk \
+sudo diskutil list
+sudo diskutil mount disk1s1
+vi /EFI/clover/config.plist
+	<key>ScreenResolution</key>
+	<string>1920×1080</string>
+vi /Library/Preferences/SystemConfiguration/com.apple.Boot.plist
+	<key>Graphics Mode</key>
+	<string>1920*1080@60</string>
+sudo -i，加载用户变量，并跳转到目标用户home目录；
+sudo -s，不加载用户变量，不跳转目录
+
+https://passthroughpo.st/new-and-improved-mac-os-tutorial-part-1-the-basics/
+Boot your VM, and press escape at the first UEFI dialog. Type exit, hit enter. This should bring you to the OVMF configuration menu. 
+Navigate to Device Configuration > OVMF Platform Features, and set the resolution to the same value as your VM resolution.
+the above part about hitting escape at the first UEFI dialog only works when running the VM from basic.sh.
+
+xQuartz
+ssh -X root@192.168.0.200
+gvim
+sysctl -a | grep machdep.cpu.features
