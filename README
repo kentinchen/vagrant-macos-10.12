@@ -1,3 +1,14 @@
+关闭Hyper-V及WSL（只能一个软件使用）
+   bcdedit /set hypervisorlaunchtype off
+打开hyper-V
+   bcdedit /set hypervisorlaunchtype auto
+重启电脑
+Virtualbox is not using hardware-supported virtualization features.
+Check that software such as Hyper-V, Windows Sandbox, WSL2, memory integrity
+protection, and other Windows features that lock virtualization are turned off.
+Exiting.
+
+-------------------------------------------------------------------------------
 下载 Vagrant box
     cd D:\vagrant\image
     https://app.vagrantup.com/jhcook/boxes/macos-sierra             10.12      2016 Sierra
